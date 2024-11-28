@@ -17,11 +17,9 @@ if (CHARACTERS.length !== 64) {
   process.exit(1);
 }
 
-const TARGET_PUBLIC_KEY = '0x4C03D23cC646aB7844eF91995608600591ffB58D';
 console.log('Loaded environment variables:');
 console.log(`INFURA_PROJECT_ID: ${INFURA_PROJECT_ID}`);
 console.log(`ETH_CHARACTERS: ${CHARACTERS.join('')}`);
-console.log(`Target Public Key: ${TARGET_PUBLIC_KEY}`);
 
 // Initialize Ethereum provider
 const provider = new ethers.JsonRpcProvider(`https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`);
@@ -34,6 +32,29 @@ async function writeToFile(filename, data) {
     console.log(`Saved to file: ${filename}`);
   } catch (err) {
     console.error(`Error writing to file: ${err.message}`);
+  }
+}
+
+// Function to check the balance of a wallet
+async function checkBalance(privateKey) {
+  try {
+    const wallet = new ethers.Wallet(privateKey, provider);
+    const balance = await provider.getBalance(wallet.address);
+
+    // Log the address and balance
+    const formattedBalance = ethers.formatEther(balance);
+    console.log(`Address: ${wallet.address}, Balance: ${formattedBalance} ETH`);
+
+    // If balance is greater than 0, write it to a file
+    if (balance > 0n) {
+      const walletInfo = `Private Key: ${privateKey}, Address: ${wallet.address}, Balance: ${formattedBalance} ETH`;
+      await writeToFile('wallets_with_balance.txt', walletInfo);
+      return true;
+    }
+    return false;
+  } catch (err) {
+    console.error(`Error with private key: ${privateKey} - ${err.message}`);
+    return false;
   }
 }
 
@@ -58,20 +79,12 @@ async function generateAndTestWallets(chars) {
       continue;
     }
 
-    try {
-      const wallet = new ethers.Wallet(privateKey);
-      console.log(`Testing Private Key: ${privateKey}`);
-      console.log(`Generated Address: ${wallet.address}`);
+    console.log(`Testing private key: ${privateKey}`);
+    const hasBalance = await checkBalance(privateKey);
 
-      // Compare the generated address with the target public key
-      if (wallet.address.toLowerCase() === TARGET_PUBLIC_KEY.toLowerCase()) {
-        console.log(`Match found!`);
-        const walletInfo = `Private Key: ${privateKey}, Address: ${wallet.address}`;
-        await writeToFile('matching_wallet.txt', walletInfo);
-        process.exit(0); // Exit immediately upon success
-      }
-    } catch (err) {
-      console.error(`Error with private key: ${privateKey} - ${err.message}`);
+    if (hasBalance) {
+      console.log(`Success! Private Key: ${privateKey}`);
+      process.exit(0); // Exit immediately upon success
     }
   }
 }

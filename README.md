@@ -19,6 +19,9 @@ Below are the images from the `/images/` directory that hold the clues for the w
 
 This script generates random Ethereum private keys, derives wallet addresses, and checks their balances using the Infura Ethereum API. If it finds a wallet with a non-zero balance, the private key, wallet address, and balance are saved to a file.
 
+### Update!
+Since we now know the public key being 0x4C03D23cC646aB7844eF91995608600591ffB58D, we don't need to check the balance of all wallets anymore. However, if you want to, you can launch the `checkAllBalances.mjs` file instead of `index.mjs`.
+
 ## Features
 - Continuously generates random Ethereum wallets until one with a balance is found.
 - Logs wallet information to `wallets_with_balance.txt`.
