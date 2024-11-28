@@ -4,14 +4,10 @@
 
 Below are the images from the `/images/` directory that hold the clues for the wallet Private Key:
 
-<img src="./images/1.jpg" alt="Image 1" width="200px"> 
-<img src="./images/2.jpg" alt="Image 2" width="200px">
-<img src="./images/3.jpg" alt="Image 3" width="200px">
-<img src="./images/4.jpg" alt="Image 4" width="200px">
-<img src="./images/5.jpg" alt="Image 5" width="200px">
-<img src="./images/6.jpg" alt="Image 6" width="200px">
-<img src="./images/7.jpg" alt="Image 7" width="200px">
-<img src="./images/8.jpg" alt="Image 8" width="200px">
+<img src="./images/1.jpg" alt="Image 1" width="200px"> <img src="./images/2.jpg" alt="Image 2" width="200px">
+<img src="./images/3.jpg" alt="Image 3" width="200px"><img src="./images/4.jpg" alt="Image 4" width="200px">
+<img src="./images/5.jpg" alt="Image 5" width="200px"><img src="./images/6.jpg" alt="Image 6" width="200px">
+<img src="./images/7.jpg" alt="Image 7" width="200px"><img src="./images/8.jpg" alt="Image 8" width="200px">
 
 ---
 
